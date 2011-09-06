@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83974B651415D83400A8B2FF /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83974B641415D83400A8B2FF /* libz.1.2.3.dylib */; };
 		8704C9A4140A27670050CF29 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C90D140A27670050CF29 /* SHKOAuthSharer.m */; };
 		8704C9A5140A27670050CF29 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C90F140A27670050CF29 /* SHKSharer.m */; };
 		8704C9A6140A27670050CF29 /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C912140A27670050CF29 /* UIWebView+SHK.m */; };
@@ -106,7 +107,6 @@
 		879C60A0140DE8F5001C9192 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 879C6091140DE8F5001C9192 /* SBJsonBase.m */; };
 		879C60A1140DE8F5001C9192 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 879C6093140DE8F5001C9192 /* SBJsonParser.m */; };
 		879C60A2140DE8F5001C9192 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 879C6095140DE8F5001C9192 /* SBJsonWriter.m */; };
-		87A299651405FDB5001F407C /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 87A299641405FDB5001F407C /* libz.1.2.5.dylib */; };
 		87BCA30D14072B9A00AEE0A7 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 87BCA30614072B9A00AEE0A7 /* Icon-72.png */; };
 		87BCA30E14072B9A00AEE0A7 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 87BCA30714072B9A00AEE0A7 /* Icon-Small-50.png */; };
 		87BCA30F14072B9A00AEE0A7 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 87BCA30814072B9A00AEE0A7 /* Icon-Small.png */; };
@@ -124,6 +124,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		83974B641415D83400A8B2FF /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		8704C90C140A27670050CF29 /* SHKOAuthSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthSharer.h; sourceTree = "<group>"; };
 		8704C90D140A27670050CF29 /* SHKOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthSharer.m; sourceTree = "<group>"; };
 		8704C90E140A27670050CF29 /* SHKSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharer.h; sourceTree = "<group>"; };
@@ -277,7 +278,6 @@
 		8750BA6914023C0A00E1A330 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8750BA6B14023C1300E1A330 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8750BA7514023EFD00E1A330 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		8762838B140E1DAF00E29195 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		87665B1714024B7200187E63 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IconDownloader.h; path = "3rd Party APIs/IconDownloader.h"; sourceTree = SOURCE_ROOT; };
 		87665B1814024B7200187E63 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IconDownloader.m; path = "3rd Party APIs/IconDownloader.m"; sourceTree = SOURCE_ROOT; };
 		87665B1F14024C7A00187E63 /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Placeholder.png; path = Resources/Placeholder.png; sourceTree = "<group>"; };
@@ -309,7 +309,6 @@
 		879C6093140DE8F5001C9192 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		879C6094140DE8F5001C9192 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		879C6095140DE8F5001C9192 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		87A299641405FDB5001F407C /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		87BCA30614072B9A00AEE0A7 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		87BCA30714072B9A00AEE0A7 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
 		87BCA30814072B9A00AEE0A7 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
@@ -336,8 +335,8 @@
 			files = (
 				8730374D1407AC5800964D55 /* MessageUI.framework in Frameworks */,
 				8730374B1407AC4900964D55 /* Security.framework in Frameworks */,
-				87A299651405FDB5001F407C /* libz.1.2.5.dylib in Frameworks */,
 				871F865F140235D10063AC65 /* UIKit.framework in Frameworks */,
+				83974B651415D83400A8B2FF /* libz.1.2.3.dylib in Frameworks */,
 				871F8661140235D10063AC65 /* Foundation.framework in Frameworks */,
 				872DDF13140B2D46000854C7 /* CoreGraphics.framework in Frameworks */,
 				872DDF11140B2D3F000854C7 /* QuartzCore.framework in Frameworks */,
@@ -601,12 +600,11 @@
 		871F865D140235D10063AC65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8762838B140E1DAF00E29195 /* Twitter.framework */,
 				872DDF12140B2D46000854C7 /* CoreGraphics.framework */,
 				872DDF10140B2D3E000854C7 /* QuartzCore.framework */,
 				8730374C1407AC5800964D55 /* MessageUI.framework */,
 				8730374A1407AC4900964D55 /* Security.framework */,
-				87A299641405FDB5001F407C /* libz.1.2.5.dylib */,
+				83974B641415D83400A8B2FF /* libz.1.2.3.dylib */,
 				8750BA6B14023C1300E1A330 /* MobileCoreServices.framework */,
 				8750BA6914023C0A00E1A330 /* SystemConfiguration.framework */,
 				8750BA6614023BC000E1A330 /* CFNetwork.framework */,
@@ -1101,10 +1099,7 @@
 		871F8676140235D10063AC65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1124,10 +1119,7 @@
 		871F8677140235D10063AC65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
