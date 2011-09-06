@@ -20,20 +20,16 @@
 {
     self = [super init];
     if (self) {
-        title = [[NSString alloc]init];
-        description = [[NSString alloc]init];
-        link = [[NSString alloc]init];
-        comments = [[NSString alloc]init]; 
+        title = [NSString string];
+        description = [NSString string];
+        link = [NSString string];
+        comments = [NSString string]; 
     }
     
     return self;
 }
 
 - (void)dealloc {
-    [title release];
-    [description release];
-    [link release];
-    [comments release];
     [super dealloc];
 }
 
