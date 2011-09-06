@@ -34,7 +34,7 @@
 }
 
 - (void)reloadData {
-    NSString *htmlString = [NSString stringWithFormat:@"<html><head><body bgcolor=\"WhiteSmoke\"><h2><font color='red'>%@</font></h2> <img src='%@' align='left'/>%@<br/><br/><br/></body></html>",articletitle,comments,description];
+    NSString *htmlString = [NSString stringWithFormat:@"<html><head><body bgcolor='#E0FFFF'><h2><font color='red'>%@</font></h2> <img src='%@' align='left'/>%@<br/><br/><br/></body></html>",articletitle,comments,description];
     
     [webView loadHTMLString:htmlString baseURL:nil];
 }
@@ -85,29 +85,29 @@
         }
             break;
         case 2: {/*
-            if ([TWTweetComposeViewController canSendTweet]) {   
-                
-                NSURL *url = [NSURL URLWithString:[NSMutableString stringWithFormat:
-                                                   @"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
-                                                   SHKBitLyLogin,SHKBitLyKey,link]];
-                
-                request = [ASIHTTPRequest requestWithURL:url];
-                [request setDelegate:self];
-                [request startAsynchronous];
-                
-                shortenURLAlert = [[[UIAlertView alloc] initWithTitle:@"Shortening URL\nPlease Wait..."
-                                                              message:nil 
-                                                             delegate:self 
-                                                    cancelButtonTitle:nil
-                                                    otherButtonTitles: nil] autorelease];
-                [shortenURLAlert show];
-                
-                [self performSelector:@selector(addSpinner) withObject:nil afterDelay:0.05f];
-            }
-            else {*/
-                NSURL *url = [NSURL URLWithString:link];
-                SHKItem *item = [SHKItem URL:url title:articletitle];
-                [SHKTwitter shareItem:item];
+                  if ([TWTweetComposeViewController canSendTweet]) {   
+                  
+                  NSURL *url = [NSURL URLWithString:[NSMutableString stringWithFormat:
+                  @"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
+                  SHKBitLyLogin,SHKBitLyKey,link]];
+                  
+                  request = [ASIHTTPRequest requestWithURL:url];
+                  [request setDelegate:self];
+                  [request startAsynchronous];
+                  
+                  shortenURLAlert = [[[UIAlertView alloc] initWithTitle:@"Shortening URL\nPlease Wait..."
+                  message:nil 
+                  delegate:self 
+                  cancelButtonTitle:nil
+                  otherButtonTitles: nil] autorelease];
+                  [shortenURLAlert show];
+                  
+                  [self performSelector:@selector(addSpinner) withObject:nil afterDelay:0.05f];
+                  }
+                  else {*/
+            NSURL *url = [NSURL URLWithString:link];
+            SHKItem *item = [SHKItem URL:url title:articletitle];
+            [SHKTwitter shareItem:item];
             //}
         }
             break;
@@ -116,47 +116,81 @@
             SHKItem *item = [SHKItem URL:url title:articletitle];
             [SHKSafari shareItem:item];
         }
+        case 4: {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Logout all Social Network?"  
+                                                           message:nil
+                                                          delegate:self 
+                                                 cancelButtonTitle:@"No" 
+                                                 otherButtonTitles:@"Yes", nil];
+            [alert show];
+            [alert release];
+        }
         default:
             break;
     }
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0)
+        return;
+    else {
+        [SHK logoutOfAll];
+        
+        SPBuzzAppDelegate *appDelegate = (SPBuzzAppDelegate*)[UIApplication sharedApplication].delegate;
+        
+        [appDelegate.facebook logout:appDelegate];   
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults removeObjectForKey:@"FBAccessTokenKey"];
+        [defaults removeObjectForKey:@"FBExpirationDateKey"];   
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Successfully Logged Out."  
+                                                       message:nil
+                                                      delegate:self 
+                                             cancelButtonTitle:nil
+                                             otherButtonTitles:@"Ok", nil];
+        [alert show];
+        [alert release];
+    }
+}
+
 /*
-- (void)addSpinner {
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    
-    // Adjust the indicator so it is up a few pixels from the bottom of the alert
-    indicator.center = CGPointMake(shortenURLAlert.bounds.size.width / 2, shortenURLAlert.bounds.size.height - 50);
-    [indicator startAnimating];
-    [shortenURLAlert addSubview:indicator];
-    [indicator release];
-}
-
-- (void)requestFinished:(ASIHTTPRequest *)theRequest { 
-    
-    [shortenURLAlert dismissWithClickedButtonIndex:0 animated:YES];
-    
-    NSString *response = [[request responseString]stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-    NSURL *responseURL = [NSURL URLWithString:response];
-    TWTweetComposeViewController *tweet = [[TWTweetComposeViewController alloc]init];
-    [tweet setInitialText:articletitle];
-    [tweet addURL:responseURL];
-    [self presentModalViewController:tweet animated:YES];
-    [tweet release];
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)theRequest {      
-    
-    [shortenURLAlert dismissWithClickedButtonIndex:0 animated:YES];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Shorten URL failed" 
-                                                    message:@"Please try again." 
-                                                   delegate:self 
-                                          cancelButtonTitle:nil 
-                                          otherButtonTitles:@"OK", nil];
-    [alert show];
-    [alert release];
-}
-*/
+ - (void)addSpinner {
+ UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+ 
+ // Adjust the indicator so it is up a few pixels from the bottom of the alert
+ indicator.center = CGPointMake(shortenURLAlert.bounds.size.width / 2, shortenURLAlert.bounds.size.height - 50);
+ [indicator startAnimating];
+ [shortenURLAlert addSubview:indicator];
+ [indicator release];
+ }
+ 
+ - (void)requestFinished:(ASIHTTPRequest *)theRequest { 
+ 
+ [shortenURLAlert dismissWithClickedButtonIndex:0 animated:YES];
+ 
+ NSString *response = [[request responseString]stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+ NSURL *responseURL = [NSURL URLWithString:response];
+ TWTweetComposeViewController *tweet = [[TWTweetComposeViewController alloc]init];
+ [tweet setInitialText:articletitle];
+ [tweet addURL:responseURL];
+ [self presentModalViewController:tweet animated:YES];
+ [tweet release];
+ }
+ 
+ - (void)requestFailed:(ASIHTTPRequest *)theRequest {      
+ 
+ [shortenURLAlert dismissWithClickedButtonIndex:0 animated:YES];
+ 
+ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Shorten URL failed" 
+ message:@"Please try again." 
+ delegate:self 
+ cancelButtonTitle:nil 
+ otherButtonTitles:@"OK", nil];
+ [alert show];
+ [alert release];
+ }
+ */
 - (void)shareButtonSelected {
     
     if (isActionSheetDisplayed == YES) {
@@ -166,8 +200,9 @@
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:nil
                                                             delegate:self 
                                                    cancelButtonTitle:@"Cancel" 
-                                              destructiveButtonTitle:nil 
-                                                   otherButtonTitles:@"Email",@"Post to Facebook",@"Post to Twitter",@"Open in Safari",nil];
+                                              destructiveButtonTitle:nil
+                                                   otherButtonTitles:@"Email",@"Post to Facebook",@"Post to Twitter",@"Open in Safari",@"Logout Social Network",nil];
+    popupQuery.destructiveButtonIndex = 4;
     [popupQuery showFromBarButtonItem:actionButton animated:YES];
     [popupQuery release];
     

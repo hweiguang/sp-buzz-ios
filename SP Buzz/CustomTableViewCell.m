@@ -8,6 +8,7 @@
 
 #import "CustomTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Constants.h"
 
 @implementation CustomTableViewCell
 
@@ -20,7 +21,7 @@
         
         //Primary Label for the title
         titleLabel = [[UILabel alloc]init];
-        titleLabel.font = [UIFont fontWithName:@"Arial" size:13];
+        titleLabel.font = [UIFont fontWithName:@"Arial" size:14];
         titleLabel.textColor = [UIColor redColor];
         titleLabel.frame = CGRectMake(10,5,300,20);
         
@@ -33,14 +34,16 @@
         image = [[UIImageView alloc]initWithFrame:CGRectMake(10, 25, 130, 80)];
         image.layer.masksToBounds = YES;
         image.layer.cornerRadius = 15;
+        image.layer.borderWidth = 3;
+        image.layer.borderColor = [UIColor grayColor].CGColor;
         
         [self.contentView addSubview:titleLabel]; 
         [self.contentView addSubview:descriptionLabel];
         [self.contentView addSubview:image];
         
-        self.contentView.backgroundColor = [UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1.0];
-        titleLabel.backgroundColor = [UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1.0];
-        descriptionLabel.backgroundColor = [UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1.0];
+        self.contentView.backgroundColor = UIColorFromRGB(0xE0FFFF);
+        titleLabel.backgroundColor = UIColorFromRGB(0xE0FFFF);
+        descriptionLabel.backgroundColor = UIColorFromRGB(0xE0FFFF);
         
     }
     return self;

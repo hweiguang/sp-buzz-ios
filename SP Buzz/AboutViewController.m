@@ -7,8 +7,8 @@
 //
 
 #import "AboutViewController.h"
-#import "SHK.h"
 #import "SPBuzzAppDelegate.h"
+#import "Constants.h"
 
 @implementation AboutViewController
 
@@ -20,47 +20,9 @@
     [super dealloc];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0)
-        return;
-    else {
-        [SHK logoutOfAll];
-        
-        SPBuzzAppDelegate *appDelegate = (SPBuzzAppDelegate*)[UIApplication sharedApplication].delegate;
-        
-        [appDelegate.facebook logout:appDelegate];   
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults removeObjectForKey:@"FBAccessTokenKey"];
-        [defaults removeObjectForKey:@"FBExpirationDateKey"];   
-        
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Successfully Logged Out."  
-                                                       message:nil
-                                                      delegate:self 
-                                             cancelButtonTitle:nil
-                                             otherButtonTitles:@"Ok", nil];
-        [alert show];
-        [alert release];
-    }
-}
-
-- (void)logout {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Logout all Social Network?"  
-                                                   message:nil
-                                                  delegate:self 
-                                         cancelButtonTitle:@"No" 
-                                         otherButtonTitles:@"Yes", nil];
-    [alert show];
-    [alert release];
-}
-
 - (void)viewDidLoad {
     
-    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]initWithTitle:@"Logout" 
-                                                                    style:UIBarButtonItemStylePlain
-                                                                   target:self 
-                                                                   action:@selector(logout)];
-    self.navigationItem.rightBarButtonItem = logoutButton;
+    [super viewDidLoad];
 	
 	NSString *filePath = [[NSBundle mainBundle] pathForResource:@"aboutData" ofType:@"html"];
     
@@ -78,9 +40,7 @@
 			sv.bounces = NO;
 		}
 	}
-	
-	webView.backgroundColor = [UIColor blueColor];
-	[super viewDidLoad];
+    self.view.backgroundColor = UIColorFromRGB(0xE0FFFF);
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
