@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		83974B651415D83400A8B2FF /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83974B641415D83400A8B2FF /* libz.1.2.3.dylib */; };
 		8704C9A4140A27670050CF29 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C90D140A27670050CF29 /* SHKOAuthSharer.m */; };
 		8704C9A5140A27670050CF29 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C90F140A27670050CF29 /* SHKSharer.m */; };
 		8704C9A6140A27670050CF29 /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C912140A27670050CF29 /* UIWebView+SHK.m */; };
@@ -68,6 +67,7 @@
 		872DDF13140B2D46000854C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872DDF12140B2D46000854C7 /* CoreGraphics.framework */; };
 		8730374B1407AC4900964D55 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8730374A1407AC4900964D55 /* Security.framework */; };
 		8730374D1407AC5800964D55 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8730374C1407AC5800964D55 /* MessageUI.framework */; };
+		8745D24C141604E90051A4A1 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8745D24B141604E90051A4A1 /* libz.1.2.5.dylib */; };
 		8746271E14072BFA00F0B09A /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8746271B14072BFA00F0B09A /* Default-Portrait~ipad.png */; };
 		8746271F14072BFA00F0B09A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8746271C14072BFA00F0B09A /* Default.png */; };
 		8746272014072BFA00F0B09A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8746271D14072BFA00F0B09A /* Default@2x.png */; };
@@ -124,7 +124,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		83974B641415D83400A8B2FF /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		8704C90C140A27670050CF29 /* SHKOAuthSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthSharer.h; sourceTree = "<group>"; };
 		8704C90D140A27670050CF29 /* SHKOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthSharer.m; sourceTree = "<group>"; };
 		8704C90E140A27670050CF29 /* SHKSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharer.h; sourceTree = "<group>"; };
@@ -235,6 +234,7 @@
 		872DDF12140B2D46000854C7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		8730374A1407AC4900964D55 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8730374C1407AC5800964D55 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		8745D24B141604E90051A4A1 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		8746271B14072BFA00F0B09A /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "Resources/Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		8746271C14072BFA00F0B09A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
 		8746271D14072BFA00F0B09A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Resources/Default@2x.png"; sourceTree = "<group>"; };
@@ -333,10 +333,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8745D24C141604E90051A4A1 /* libz.1.2.5.dylib in Frameworks */,
 				8730374D1407AC5800964D55 /* MessageUI.framework in Frameworks */,
 				8730374B1407AC4900964D55 /* Security.framework in Frameworks */,
 				871F865F140235D10063AC65 /* UIKit.framework in Frameworks */,
-				83974B651415D83400A8B2FF /* libz.1.2.3.dylib in Frameworks */,
 				871F8661140235D10063AC65 /* Foundation.framework in Frameworks */,
 				872DDF13140B2D46000854C7 /* CoreGraphics.framework in Frameworks */,
 				872DDF11140B2D3F000854C7 /* QuartzCore.framework in Frameworks */,
@@ -600,11 +600,11 @@
 		871F865D140235D10063AC65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8745D24B141604E90051A4A1 /* libz.1.2.5.dylib */,
 				872DDF12140B2D46000854C7 /* CoreGraphics.framework */,
 				872DDF10140B2D3E000854C7 /* QuartzCore.framework */,
 				8730374C1407AC5800964D55 /* MessageUI.framework */,
 				8730374A1407AC4900964D55 /* Security.framework */,
-				83974B641415D83400A8B2FF /* libz.1.2.3.dylib */,
 				8750BA6B14023C1300E1A330 /* MobileCoreServices.framework */,
 				8750BA6914023C0A00E1A330 /* SystemConfiguration.framework */,
 				8750BA6614023BC000E1A330 /* CFNetwork.framework */,

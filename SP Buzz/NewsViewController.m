@@ -34,6 +34,8 @@
     
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     self.tableView.rowHeight = kCustomRowHeight;
+    self.tableView.separatorColor = [UIColor lightGrayColor];
+    [[self tableView] setBackgroundColor:UIColorFromRGB(0xE0FFFF)];
     
 	if (_refreshHeaderView == nil) {
 		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];

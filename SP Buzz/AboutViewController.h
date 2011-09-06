@@ -14,6 +14,4 @@
 
 @property(nonatomic, retain) IBOutlet UIWebView *webView;
 
-- (void)logout;
-
 @end
