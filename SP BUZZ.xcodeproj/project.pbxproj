@@ -90,7 +90,6 @@
 		8750BA6814023BD700E1A330 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8750BA6614023BC000E1A330 /* CFNetwork.framework */; };
 		8750BA7014023C3500E1A330 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8750BA6B14023C1300E1A330 /* MobileCoreServices.framework */; };
 		8750BA7114023C3500E1A330 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8750BA6914023C0A00E1A330 /* SystemConfiguration.framework */; };
-		8762838C140E1DAF00E29195 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8762838B140E1DAF00E29195 /* Twitter.framework */; };
 		87665B1914024B7200187E63 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 87665B1814024B7200187E63 /* IconDownloader.m */; };
 		87665B2014024C7A00187E63 /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 87665B1F14024C7A00187E63 /* Placeholder.png */; };
 		876934BB140242BB001010F9 /* FeedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 876934BA140242BB001010F9 /* FeedObject.m */; };
@@ -342,7 +341,6 @@
 				871F8661140235D10063AC65 /* Foundation.framework in Frameworks */,
 				872DDF13140B2D46000854C7 /* CoreGraphics.framework in Frameworks */,
 				872DDF11140B2D3F000854C7 /* QuartzCore.framework in Frameworks */,
-				8762838C140E1DAF00E29195 /* Twitter.framework in Frameworks */,
 				8750BA6814023BD700E1A330 /* CFNetwork.framework in Frameworks */,
 				8750BA7014023C3500E1A330 /* MobileCoreServices.framework in Frameworks */,
 				8750BA7114023C3500E1A330 /* SystemConfiguration.framework in Frameworks */,
