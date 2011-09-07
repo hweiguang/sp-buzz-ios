@@ -13,13 +13,11 @@
     NSString *description;
     NSString *link;
     NSString *comments;
-    UIImage *icon;
 }
 
 @property (nonatomic,retain) NSString *title;
 @property (nonatomic,retain) NSString *description;
 @property (nonatomic,retain) NSString *link;
 @property (nonatomic,retain) NSString *comments;
-@property (nonatomic,retain) UIImage *icon;
 
 @end

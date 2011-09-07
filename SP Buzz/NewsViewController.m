@@ -13,15 +13,15 @@
 #import "CustomTableViewCell.h"
 #import "DetailViewController.h"
 #import "SPBuzzAppDelegate.h"
+#import "MBProgressHUD.h"
 
 @implementation NewsViewController
-
-@synthesize imageDownloadsInProgress;
 
 #define kCustomRowHeight    110.0
 
 - (void)dealloc {
     [data release];
+    [imageDownloadinProgress release];
     [activity release];
     [request clearDelegatesAndCancel];
     [request release];
@@ -32,10 +32,9 @@
 {
     [super viewDidLoad];
     
-    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     self.tableView.rowHeight = kCustomRowHeight;
     self.tableView.separatorColor = [UIColor lightGrayColor];
-    [[self tableView] setBackgroundColor:UIColorFromRGB(0xE0FFFF)];
+    self.tableView.backgroundColor = UIColorFromRGB(0xE0FFFF);
     
 	if (_refreshHeaderView == nil) {
 		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
@@ -46,6 +45,7 @@
 	}
     
     data = [[NSMutableArray alloc]init];
+    imageDownloadinProgress = [[NSMutableArray alloc]init];
     
     activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activity.center = CGPointMake(160,185);
@@ -82,14 +82,21 @@
         [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
         [activity stopAnimating];
     }
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	// The sample image is based on the work by http://www.pixelpressicons.com, http://creativecommons.org/licenses/by/2.5/ca/
+	// Make the customViews 37 by 37 pixels for best results (those are the bounds of the build-in progress indicators)
+	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Error.png"]] autorelease];
+	
+    // Set custom view mode
+    HUD.mode = MBProgressHUDModeCustomView;
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update failed" 
-                                                    message:@"Please make sure you are connected to the Internet." 
-                                                   delegate:self 
-                                          cancelButtonTitle:nil 
-                                          otherButtonTitles:@"OK", nil];
-    [alert show];
-    [alert release];
+    HUD.labelText = @"Update failed";
+	HUD.detailsLabelText = @"No Internet Connection";
+    [HUD show:YES];
+	[HUD hide:YES afterDelay:1.0];
+    [HUD release];
 }
 
 - (void)parseXML {  
@@ -188,27 +195,25 @@
     cell.titleLabel.text = aFeedObject.title;
     cell.descriptionLabel.text = description;
     
-    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
     
-    // Only load cached images; defer new downloads until scrolling ends
-    if (!aFeedObject.icon && !iconDownloader.aFeedObject.icon)
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
+    
+    UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfFile:imagePath]];
+    
+    if (!image)
     {
-        if (self.tableView.dragging == NO && self.tableView.decelerating == NO)
-        {
-            [self startIconDownload:aFeedObject forIndexPath:indexPath];
-        }
+        if (!self.tableView.dragging && !self.tableView.decelerating)
+            [self startIconDownload:aFeedObject];
         // if a download is deferred or in progress, return a placeholder image
         cell.image.image = [UIImage imageNamed:@"Placeholder.png"];  
     }
     else
-    {
-        if (!aFeedObject.icon) {
-            cell.image.image = iconDownloader.aFeedObject.icon;
-        }
-        else
-            cell.image.image = aFeedObject.icon;
-    }
+        cell.image.image = image;
     
+    [image release];
     return cell;
 }
 
@@ -295,11 +300,15 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
-    
     if (!decelerate)
 	{
         [self loadImagesForOnscreenRows];
     }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {	
@@ -309,22 +318,24 @@
 #pragma mark -
 #pragma mark Table cell image support
 
-- (void)startIconDownload:(FeedObject *)aFeedObject forIndexPath:(NSIndexPath *)indexPath
+- (void)startIconDownload:(FeedObject *)aFeedObject
 {
-    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
-    if (iconDownloader == nil) 
-    {
-        iconDownloader = [[IconDownloader alloc] init];
+    if (![imageDownloadinProgress containsObject:aFeedObject]) {
+        [imageDownloadinProgress addObject:aFeedObject];
+        IconDownloader *iconDownloader = [[IconDownloader alloc] init];
         iconDownloader.aFeedObject = aFeedObject;
-        iconDownloader.indexPathInTableView = indexPath;
         iconDownloader.delegate = self;
-        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
         [iconDownloader startDownload];
-        [iconDownloader release];   
-    }
+    }  
 }
 
-// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
+// called by our ImageDownloader when an icon is ready to be displayed
+- (void)appImageDidLoad:(FeedObject *)aFeedObject
+{
+    [self.tableView reloadData];
+    [imageDownloadinProgress removeObject:aFeedObject];
+}
+
 - (void)loadImagesForOnscreenRows
 {
     if ([data count] > 0)
@@ -334,32 +345,19 @@
         {
             FeedObject *aFeedObject = [data objectAtIndex:indexPath.row];
             
-            if (!aFeedObject.icon) // avoid the app icon download if the app already has an icon
-            {
-                [self startIconDownload:aFeedObject forIndexPath:indexPath];
-            }
+            NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
+            
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentDirectory = [paths objectAtIndex:0];
+            NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
+            
+            UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfFile:imagePath]];
+            
+            if (!image) // avoid the app icon download if the app already has an icon
+                [self startIconDownload:aFeedObject];
+            [image release];
         }
     }
-}
-
-// called by our ImageDownloader when an icon is ready to be displayed
-- (void)appImageDidLoad:(NSIndexPath *)indexPath
-{
-    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
-    if (iconDownloader != nil)
-    {
-        CustomTableViewCell *cell = (CustomTableViewCell*)[self.tableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
-        // Display the newly loaded image
-        cell.image.image = iconDownloader.aFeedObject.icon;
-    }
-}
-
-
-#pragma mark -
-#pragma mark Deferred image loading (UIScrollViewDelegate)
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self loadImagesForOnscreenRows];
 }
 
 @end

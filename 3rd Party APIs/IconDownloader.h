@@ -1,20 +1,20 @@
 /*
-     File: IconDownloader.h 
+ File: IconDownloader.h 
  Abstract: Helper object for managing the downloading of a particular app's icon.
  As a delegate "NSURLConnectionDelegate" is downloads the app icon in the background if it does not
  yet exist and works in conjunction with the RootViewController to manage which apps need their icon.
  
  A simple BOOL tracks whether or not a download is already in progress to avoid redundant requests.
-  
-  Version: 1.2 
-  
+ 
+ Version: 1.2 
+ 
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple 
  Inc. ("Apple") in consideration of your agreement to the following 
  terms, and your use, installation, modification or redistribution of 
  this Apple software constitutes acceptance of these terms.  If you do 
  not agree with these terms, please do not use, install, modify or 
  redistribute this Apple software. 
-  
+ 
  In consideration of your agreement to abide by the following terms, and 
  subject to these terms, Apple grants you a personal, non-exclusive 
  license, under Apple's copyrights in this original Apple software (the 
@@ -30,13 +30,13 @@
  implied, are granted by Apple herein, including but not limited to any 
  patent rights that may be infringed by your derivative works or by other 
  works in which the Apple Software may be incorporated. 
-  
+ 
  The Apple Software is provided by Apple on an "AS IS" basis.  APPLE 
  MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION 
  THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS 
  FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND 
  OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS. 
-  
+ 
  IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL 
  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
@@ -45,10 +45,12 @@
  AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE), 
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE. 
-  
+ 
  Copyright (C) 2010 Apple Inc. All Rights Reserved. 
-  
+ 
  */
+
+#import "ASIHTTPRequest.h"
 
 @class FeedObject;
 
@@ -57,27 +59,20 @@
 @interface IconDownloader : NSObject
 {
     FeedObject *aFeedObject;
-    NSIndexPath *indexPathInTableView;
     id <IconDownloaderDelegate> delegate;
     
-    NSMutableData *activeDownload;
-    NSURLConnection *imageConnection;
+    ASIHTTPRequest *imageConnection;
 }
 
 @property (nonatomic, retain) FeedObject *aFeedObject;
-@property (nonatomic, retain) NSIndexPath *indexPathInTableView;
 @property (nonatomic, assign) id <IconDownloaderDelegate> delegate;
 
-@property (nonatomic, retain) NSMutableData *activeDownload;
-@property (nonatomic, retain) NSURLConnection *imageConnection;
-
 - (void)startDownload;
-- (void)cancelDownload;
 
 @end
 
 @protocol IconDownloaderDelegate 
 
-- (void)appImageDidLoad:(NSIndexPath *)indexPath;
+- (void)appImageDidLoad:(FeedObject *)aFeedObject;
 
 @end

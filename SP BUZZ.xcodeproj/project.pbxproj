@@ -63,6 +63,7 @@
 		871F868D140238DB0063AC65 /* Events@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 871F8687140238DB0063AC65 /* Events@2x.png */; };
 		871F868E140238DB0063AC65 /* News.png in Resources */ = {isa = PBXBuildFile; fileRef = 871F8688140238DB0063AC65 /* News.png */; };
 		871F868F140238DB0063AC65 /* News@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 871F8689140238DB0063AC65 /* News@2x.png */; };
+		872CC4A81416FADB009DC60D /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 872CC4A71416FADB009DC60D /* Base64.m */; };
 		872DDF11140B2D3F000854C7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872DDF10140B2D3E000854C7 /* QuartzCore.framework */; };
 		872DDF13140B2D46000854C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872DDF12140B2D46000854C7 /* CoreGraphics.framework */; };
 		8730374B1407AC4900964D55 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8730374A1407AC4900964D55 /* Security.framework */; };
@@ -94,6 +95,8 @@
 		87665B1914024B7200187E63 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 87665B1814024B7200187E63 /* IconDownloader.m */; };
 		87665B2014024C7A00187E63 /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 87665B1F14024C7A00187E63 /* Placeholder.png */; };
 		876934BB140242BB001010F9 /* FeedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 876934BA140242BB001010F9 /* FeedObject.m */; };
+		877F227014173CF00098F739 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 877F226F14173CF00098F739 /* MBProgressHUD.m */; };
+		877F227614173DFC0098F739 /* Error.png in Resources */ = {isa = PBXBuildFile; fileRef = 877F227514173DFC0098F739 /* Error.png */; };
 		879C6096140DE8F5001C9192 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 879C607C140DE8F5001C9192 /* Facebook.m */; };
 		879C6097140DE8F5001C9192 /* FBConnect.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879C607D140DE8F5001C9192 /* FBConnect.bundle */; };
 		879C6098140DE8F5001C9192 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 879C607F140DE8F5001C9192 /* FBDialog.bundle */; };
@@ -230,6 +233,8 @@
 		871F8687140238DB0063AC65 /* Events@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Events@2x.png"; path = "Resources/Events@2x.png"; sourceTree = "<group>"; };
 		871F8688140238DB0063AC65 /* News.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = News.png; path = Resources/News.png; sourceTree = "<group>"; };
 		871F8689140238DB0063AC65 /* News@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "News@2x.png"; path = "Resources/News@2x.png"; sourceTree = "<group>"; };
+		872CC4A61416FADB009DC60D /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		872CC4A71416FADB009DC60D /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		872DDF10140B2D3E000854C7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		872DDF12140B2D46000854C7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		8730374A1407AC4900964D55 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -283,6 +288,9 @@
 		87665B1F14024C7A00187E63 /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Placeholder.png; path = Resources/Placeholder.png; sourceTree = "<group>"; };
 		876934B9140242BB001010F9 /* FeedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedObject.h; sourceTree = "<group>"; };
 		876934BA140242BB001010F9 /* FeedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedObject.m; sourceTree = "<group>"; };
+		877F226E14173CF00098F739 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		877F226F14173CF00098F739 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		877F227514173DFC0098F739 /* Error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Error.png; path = Resources/Error.png; sourceTree = "<group>"; };
 		879C607B140DE8F5001C9192 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		879C607C140DE8F5001C9192 /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Facebook.m; sourceTree = "<group>"; };
 		879C607D140DE8F5001C9192 /* FBConnect.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBConnect.bundle; sourceTree = "<group>"; };
@@ -664,6 +672,7 @@
 		871F8682140238BA0063AC65 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				877F227514173DFC0098F739 /* Error.png */,
 				87D437F014063AA200D89089 /* aboutData.html */,
 				87D437F114063AA200D89089 /* SP_logo.png */,
 				87665B1F14024C7A00187E63 /* Placeholder.png */,
@@ -689,14 +698,26 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
+		872CC4A51416FADB009DC60D /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				872CC4A61416FADB009DC60D /* Base64.h */,
+				872CC4A71416FADB009DC60D /* Base64.m */,
+			);
+			name = Base64;
+			path = "3rd Party APIs/Base64";
+			sourceTree = SOURCE_ROOT;
+		};
 		8750B9FC14023AF200E1A330 /* 3rd Party APIs */ = {
 			isa = PBXGroup;
 			children = (
 				87665B1714024B7200187E63 /* IconDownloader.h */,
 				87665B1814024B7200187E63 /* IconDownloader.m */,
 				8750B9FE14023B2C00E1A330 /* ASIHTTPRequest */,
+				872CC4A51416FADB009DC60D /* Base64 */,
 				8750BA1514023B2C00E1A330 /* EGOTableViewPullRefresh */,
 				879C607A140DE8F5001C9192 /* Facebook Connect */,
+				877F226D14173CF00098F739 /* MBProgressHUD */,
 				8750BA3814023B2C00E1A330 /* MGSplitViewController */,
 				8704C909140A27670050CF29 /* ShareKit */,
 				8750BA3F14023B2C00E1A330 /* TBXML */,
@@ -787,6 +808,16 @@
 			);
 			name = TBXML;
 			path = "3rd Party APIs/TBXML";
+			sourceTree = SOURCE_ROOT;
+		};
+		877F226D14173CF00098F739 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				877F226E14173CF00098F739 /* MBProgressHUD.h */,
+				877F226F14173CF00098F739 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			path = "3rd Party APIs/MBProgressHUD";
 			sourceTree = SOURCE_ROOT;
 		};
 		879C607A140DE8F5001C9192 /* Facebook Connect */ = {
@@ -926,6 +957,7 @@
 				8704C9C0140A27670050CF29 /* Localizable.strings in Resources */,
 				879C6097140DE8F5001C9192 /* FBConnect.bundle in Resources */,
 				879C6098140DE8F5001C9192 /* FBDialog.bundle in Resources */,
+				877F227614173DFC0098F739 /* Error.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1011,6 +1043,8 @@
 				879C60A0140DE8F5001C9192 /* SBJsonBase.m in Sources */,
 				879C60A1140DE8F5001C9192 /* SBJsonParser.m in Sources */,
 				879C60A2140DE8F5001C9192 /* SBJsonWriter.m in Sources */,
+				872CC4A81416FADB009DC60D /* Base64.m in Sources */,
+				877F227014173CF00098F739 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1099,7 +1133,10 @@
 		871F8676140235D10063AC65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1119,7 +1156,10 @@
 		871F8677140235D10063AC65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = gnu99;

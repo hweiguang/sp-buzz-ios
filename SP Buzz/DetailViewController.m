@@ -12,6 +12,7 @@
 #import "SHKTwitter.h"
 #import "SHKMail.h"
 #import "SHKSafari.h"
+#import "Base64.h"
 //#import <Twitter/Twitter.h>
 
 @implementation DetailViewController
@@ -34,9 +35,26 @@
 }
 
 - (void)reloadData {
-    NSString *htmlString = [NSString stringWithFormat:@"<html><head><body bgcolor='#E0FFFF'><h2><font color='red'>%@</font></h2> <img src='%@' align='left'/>%@<br/><br/><br/></body></html>",articletitle,comments,description];
     
-    [webView loadHTMLString:htmlString baseURL:nil];
+    NSString *imageName = [articletitle stringByAppendingString:@".jpg"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
+    
+    NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
+    
+    NSString *html;
+    
+    if (imageData) {
+        [Base64 initialize];
+        NSString *Base64image = [Base64 encode:imageData];
+        
+        html = [NSString stringWithFormat:@"<html><head><body bgcolor='#E0FFFF'><h2><font color='red'>%@</font></h2> <img src='data:image/jpg;base64,%@' align='left'/>%@<br/><br/><br/></body></html>",articletitle,Base64image,description];
+    }
+    else {
+        html = [NSString stringWithFormat:@"<html><head><body bgcolor='#E0FFFF'><h2><font color='red'>%@</font></h2> <img src='%@' align='left'/>%@<br/><br/><br/></body></html>",articletitle,comments,description];
+    }
+    [webView loadHTMLString:html baseURL:nil];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)_request 
@@ -54,12 +72,21 @@
     
     switch (buttonIndex) {
         case 0: {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentDirectory = [paths objectAtIndex:0]; 
+            NSError *error = nil;
+            for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentDirectory error:&error]) {
+                [[NSFileManager defaultManager] removeItemAtPath:[documentDirectory stringByAppendingPathComponent:file] error:&error];
+            }
+        }
+            break;
+        case 1: {
             NSURL *url = [NSURL URLWithString:link];
             SHKItem *item = [SHKItem URL:url title:articletitle];
             [SHKMail shareItem:item];
         }
             break;
-        case 1: {
+        case 2: {
             SPBuzzAppDelegate *appDelegate = (SPBuzzAppDelegate*)[UIApplication sharedApplication].delegate;
             
             if (![appDelegate.facebook isSessionValid])
@@ -84,7 +111,7 @@
             }                        
         }
             break;
-        case 2: {/*
+        case 3: {/*
                   if ([TWTweetComposeViewController canSendTweet]) {   
                   
                   NSURL *url = [NSURL URLWithString:[NSMutableString stringWithFormat:
@@ -111,46 +138,33 @@
             //}
         }
             break;
-        case 3: {
+        case 4: {
             NSURL *url = [NSURL URLWithString:link];
             SHKItem *item = [SHKItem URL:url title:articletitle];
             [SHKSafari shareItem:item];
         }
-        case 4: {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Logout all Social Network?"  
+            break;
+        case 5: {
+            [SHK logoutOfAll];
+            
+            SPBuzzAppDelegate *appDelegate = (SPBuzzAppDelegate*)[UIApplication sharedApplication].delegate;
+            
+            [appDelegate.facebook logout:appDelegate];   
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults removeObjectForKey:@"FBAccessTokenKey"];
+            [defaults removeObjectForKey:@"FBExpirationDateKey"];   
+            
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Successfully Logged Out."  
                                                            message:nil
                                                           delegate:self 
-                                                 cancelButtonTitle:@"No" 
-                                                 otherButtonTitles:@"Yes", nil];
+                                                 cancelButtonTitle:nil
+                                                 otherButtonTitles:@"Ok", nil];
             [alert show];
             [alert release];
         }
         default:
             break;
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0)
-        return;
-    else {
-        [SHK logoutOfAll];
-        
-        SPBuzzAppDelegate *appDelegate = (SPBuzzAppDelegate*)[UIApplication sharedApplication].delegate;
-        
-        [appDelegate.facebook logout:appDelegate];   
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults removeObjectForKey:@"FBAccessTokenKey"];
-        [defaults removeObjectForKey:@"FBExpirationDateKey"];   
-        
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Successfully Logged Out."  
-                                                       message:nil
-                                                      delegate:self 
-                                             cancelButtonTitle:nil
-                                             otherButtonTitles:@"Ok", nil];
-        [alert show];
-        [alert release];
     }
 }
 
@@ -200,9 +214,8 @@
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:nil
                                                             delegate:self 
                                                    cancelButtonTitle:@"Cancel" 
-                                              destructiveButtonTitle:nil
-                                                   otherButtonTitles:@"Email",@"Post to Facebook",@"Post to Twitter",@"Open in Safari",@"Logout Social Network",nil];
-    popupQuery.destructiveButtonIndex = 4;
+                                              destructiveButtonTitle:@"Clear cache"
+                                                   otherButtonTitles:@"Email",@"Post to Facebook",@"Post to Twitter",@"Open in Safari",@"Logout Facebook/Twitter",nil];
     [popupQuery showFromBarButtonItem:actionButton animated:YES];
     [popupQuery release];
     

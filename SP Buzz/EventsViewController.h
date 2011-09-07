@@ -15,19 +15,15 @@
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL loading;
     
-    ASIHTTPRequest *request;
-    
     NSMutableArray *data;
-    
-    NSMutableDictionary *imageDownloadsInProgress;
+    NSMutableArray *imageDownloadinProgress;
+    ASIHTTPRequest *request;
     
     UIActivityIndicatorView *activity;
 }
 
-@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
-
-- (void)appImageDidLoad:(NSIndexPath *)indexPath;
-- (void)startIconDownload:(FeedObject *)aFeedObject forIndexPath:(NSIndexPath *)indexPath;
+- (void)appImageDidLoad:(FeedObject *)aFeedObject;
+- (void)startIconDownload:(FeedObject *)aFeedObject;
 - (void)loadImagesForOnscreenRows;
 
 - (void)downloadXML;
