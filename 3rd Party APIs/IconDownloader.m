@@ -56,77 +56,35 @@
 @implementation IconDownloader
 
 @synthesize aFeedObject;
-@synthesize indexPathInTableView;
 @synthesize delegate;
-@synthesize activeDownload;
-@synthesize imageConnection;
 
 #pragma mark
+
+- (void)requestFinished:(ASIHTTPRequest *)theRequest {      
+    // call our delegate and tell it that our icon is ready for display
+    [delegate appImageDidLoad:aFeedObject];
+}
 
 - (void)dealloc
 {
     [aFeedObject release];
-    [indexPathInTableView release];
-    
-    [activeDownload release];
-    
-    [imageConnection cancel];
+    [imageConnection clearDelegatesAndCancel];
     [imageConnection release];
-    
     [super dealloc];
 }
 
 - (void)startDownload
 {
-    self.activeDownload = [NSMutableData data];
-    // alloc+init and start an NSURLConnection; release on completion/failure
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
-                             [NSURLRequest requestWithURL:
-                              [NSURL URLWithString:aFeedObject.comments]] delegate:self];
-    self.imageConnection = conn;
-    [conn release];
-}
-
-- (void)cancelDownload
-{
-    [self.imageConnection cancel];
-    self.imageConnection = nil;
-    self.activeDownload = nil;
-}
-
-
-#pragma mark -
-#pragma mark Download support (NSURLConnectionDelegate)
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [self.activeDownload appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-	// Clear the activeDownload property to allow later attempts
-    self.activeDownload = nil;
+    NSURL *url = [NSURL URLWithString:aFeedObject.comments];
+    imageConnection = [ASIHTTPRequest requestWithURL:url];
+    [imageConnection setDelegate:self];
+    NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
     
-    // Release the connection now that it's finished
-    self.imageConnection = nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    // Set appIcon and clear temporary data/image
-    UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
-    
-    self.aFeedObject.icon = image;
-    
-    self.activeDownload = nil;
-    [image release];
-    
-    // Release the connection now that it's finished
-    self.imageConnection = nil;
-    
-    // call our delegate and tell it that our icon is ready for display
-    [delegate appImageDidLoad:self.indexPathInTableView];
+    [imageConnection setDownloadDestinationPath:imagePath]; //Set to save the file to documents directory
+    [imageConnection startAsynchronous]; //Start request
 }
 
 @end

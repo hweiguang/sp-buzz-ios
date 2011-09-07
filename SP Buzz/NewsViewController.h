@@ -16,18 +16,14 @@
     BOOL loading;
     
     NSMutableArray *data;
-    
+    NSMutableArray *imageDownloadinProgress;
     ASIHTTPRequest *request;
-    
-    NSMutableDictionary *imageDownloadsInProgress;
     
     UIActivityIndicatorView *activity;
 }
 
-@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
-
-- (void)appImageDidLoad:(NSIndexPath *)indexPath;
-- (void)startIconDownload:(FeedObject *)aFeedObject forIndexPath:(NSIndexPath *)indexPath;
+- (void)appImageDidLoad:(FeedObject *)aFeedObject;
+- (void)startIconDownload:(FeedObject *)aFeedObject;
 - (void)loadImagesForOnscreenRows;
 
 - (void)downloadXML;

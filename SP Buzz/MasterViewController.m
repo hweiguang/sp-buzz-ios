@@ -26,9 +26,9 @@
     self.tabBarController = [[UITabBarController alloc]init];
     
     //Preparing the ViewControllers
-    NewsViewController *newsVC = [[[NewsViewController alloc]init]autorelease];
-    EventsViewController *eventsVC = [[[EventsViewController alloc]init]autorelease];
-    AboutViewController *aboutVC = [[[AboutViewController alloc]initWithNibName:@"AboutViewController" bundle:nil]autorelease];
+    NewsViewController *newsVC = [[NewsViewController alloc]init];
+    EventsViewController *eventsVC = [[EventsViewController alloc]init];
+    AboutViewController *aboutVC = [[AboutViewController alloc]initWithNibName:@"AboutViewController" bundle:nil];
     
     //Setting the titles
     newsVC.title = @"News";
@@ -46,18 +46,21 @@
     //Adding NavigationBar to all the ViewControllers
     UINavigationController *navigationController = nil;
     navigationController = [[UINavigationController alloc] initWithRootViewController:newsVC];
+    [newsVC release];
     navigationController.navigationBar.tintColor = [UIColor blackColor];
     [tabBarViewControllers addObject:navigationController];
     [navigationController release];
     navigationController = nil;
     
     navigationController = [[UINavigationController alloc] initWithRootViewController:eventsVC];
+    [eventsVC release];
     navigationController.navigationBar.tintColor = [UIColor blackColor];
     [tabBarViewControllers addObject:navigationController];
     [navigationController release];
     navigationController = nil;
     
     navigationController = [[UINavigationController alloc] initWithRootViewController:aboutVC];
+    [aboutVC release];
     navigationController.navigationBar.tintColor = [UIColor blackColor];
     [tabBarViewControllers addObject:navigationController];
     [navigationController release];

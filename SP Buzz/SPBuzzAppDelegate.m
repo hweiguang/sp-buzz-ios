@@ -21,7 +21,7 @@
 @synthesize facebook;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+{       
     facebook = [[Facebook alloc] initWithAppId:FacebookAppID andDelegate:self];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -37,7 +37,6 @@
         [self setupiPhone];
     else
         [self setupiPad];
-    
     return YES;
 }
 

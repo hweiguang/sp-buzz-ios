@@ -14,7 +14,6 @@
 @synthesize description;
 @synthesize link;
 @synthesize comments;
-@synthesize icon;
 
 - (id)init
 {
