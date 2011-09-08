@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Twitter/Twitter.h>
+#import "SPBuzzAppDelegate.h"
+#import "Constants.h"
+#import "Base64.h"
 #import "SHK.h"
+#import "SHKTwitter.h"
+#import "SHKMail.h"
 #import "FBDialog.h"
 #import "ASIHTTPRequest.h"
+#import "MBProgressHUD.h"
 
 @interface DetailViewController : UIViewController <UIWebViewDelegate,UIActionSheetDelegate,FBDialogDelegate> {
     UIWebView *webView;
@@ -22,9 +29,9 @@
     
     BOOL isActionSheetDisplayed;
     
-    ASIHTTPRequest *request;
+    MBProgressHUD *shorteningURLHUD;
     
-    UIAlertView *shortenURLAlert;
+    ASIHTTPRequest *request;
 }
 @property (nonatomic,retain) NSString *articletitle;
 @property (nonatomic,retain) NSString *description;
@@ -35,6 +42,5 @@
 - (void)reloadData;
 - (void)loading;
 - (void)shareButtonSelected;
-//- (void)addSpinner;
 
 @end

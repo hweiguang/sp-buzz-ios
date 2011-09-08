@@ -7,6 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MasterViewController.h"
+#import "DetailViewController.h"
+#import "MGSplitViewController.h"
+#import "Constants.h"
+#import "SHK.h"
 #import "FBConnect.h"
 
 @class MasterViewController;

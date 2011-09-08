@@ -7,10 +7,6 @@
 //
 
 #import "SPBuzzAppDelegate.h"
-#import "MasterViewController.h"
-#import "DetailViewController.h"
-#import "MGSplitViewController.h"
-#import "Constants.h"
 
 @implementation SPBuzzAppDelegate
 
@@ -25,10 +21,31 @@
     facebook = [[Facebook alloc] initWithAppId:FacebookAppID andDelegate:self];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
     if ([defaults objectForKey:@"FBAccessTokenKey"] 
         && [defaults objectForKey:@"FBExpirationDateKey"]) {
         facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
         facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+    }
+    
+    if ([defaults boolForKey:@"logout"]) {
+        [SHK logoutOfAll];
+        [self.facebook logout:self];   
+        [defaults removeObjectForKey:@"FBAccessTokenKey"];
+        [defaults removeObjectForKey:@"FBExpirationDateKey"]; 
+        [defaults setBool:NO forKey:@"logout"];
+        [defaults synchronize];
+    }
+    
+    if ([defaults boolForKey:@"clearcache"]) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentDirectory = [paths objectAtIndex:0]; 
+        NSError *error = nil;
+        for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentDirectory error:&error]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[documentDirectory stringByAppendingPathComponent:file] error:&error];
+        }
+        [defaults setBool:NO forKey:@"clearcache"];
+        [defaults synchronize];
     }
     
     masterViewController = [[MasterViewController alloc]init];

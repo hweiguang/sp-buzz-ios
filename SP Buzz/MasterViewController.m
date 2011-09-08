@@ -7,9 +7,6 @@
 //
 
 #import "MasterViewController.h"
-#import "NewsViewController.h"
-#import "EventsViewController.h"
-#import "AboutViewController.h"
 
 @implementation MasterViewController
 

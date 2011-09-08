@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewsViewController.h"
+#import "EventsViewController.h"
+#import "AboutViewController.h"
 
 @interface MasterViewController : UIViewController {
     UITabBarController *tabBarController;
