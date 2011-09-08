@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 
 @interface AboutViewController : UIViewController <UIWebViewDelegate,UIAlertViewDelegate> {
 	IBOutlet UIWebView *webView;

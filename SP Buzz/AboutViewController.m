@@ -7,8 +7,6 @@
 //
 
 #import "AboutViewController.h"
-#import "SPBuzzAppDelegate.h"
-#import "Constants.h"
 
 @implementation AboutViewController
 

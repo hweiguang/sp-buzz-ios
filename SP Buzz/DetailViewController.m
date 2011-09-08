@@ -6,14 +6,7 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "SPBuzzAppDelegate.h"
 #import "DetailViewController.h"
-#import "Constants.h"
-#import "SHKTwitter.h"
-#import "SHKMail.h"
-#import "SHKSafari.h"
-#import "Base64.h"
-//#import <Twitter/Twitter.h>
 
 @implementation DetailViewController
 
@@ -31,11 +24,11 @@
     [description release];
     [comments release];
     [articletitle release];
+    [shorteningURLHUD release];
     [super dealloc];
 }
 
 - (void)reloadData {
-    
     NSString *imageName = [articletitle stringByAppendingString:@".jpg"];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = [paths objectAtIndex:0];
@@ -72,21 +65,12 @@
     
     switch (buttonIndex) {
         case 0: {
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentDirectory = [paths objectAtIndex:0]; 
-            NSError *error = nil;
-            for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentDirectory error:&error]) {
-                [[NSFileManager defaultManager] removeItemAtPath:[documentDirectory stringByAppendingPathComponent:file] error:&error];
-            }
-        }
-            break;
-        case 1: {
             NSURL *url = [NSURL URLWithString:link];
             SHKItem *item = [SHKItem URL:url title:articletitle];
             [SHKMail shareItem:item];
         }
             break;
-        case 2: {
+        case 1: {
             SPBuzzAppDelegate *appDelegate = (SPBuzzAppDelegate*)[UIApplication sharedApplication].delegate;
             
             if (![appDelegate.facebook isSessionValid])
@@ -111,25 +95,20 @@
             }                        
         }
             break;
-        case 3: {/*
-                  if ([TWTweetComposeViewController canSendTweet]) {   
-                  
+        case 2: {/*
+                  if ([TWTweetComposeViewController canSendTweet]) { 
                   NSURL *url = [NSURL URLWithString:[NSMutableString stringWithFormat:
                   @"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
                   SHKBitLyLogin,SHKBitLyKey,link]];
-                  
                   request = [ASIHTTPRequest requestWithURL:url];
-                  [request setDelegate:self];
+                  request.delegate = self;
                   [request startAsynchronous];
                   
-                  shortenURLAlert = [[[UIAlertView alloc] initWithTitle:@"Shortening URL\nPlease Wait..."
-                  message:nil 
-                  delegate:self 
-                  cancelButtonTitle:nil
-                  otherButtonTitles: nil] autorelease];
-                  [shortenURLAlert show];
-                  
-                  [self performSelector:@selector(addSpinner) withObject:nil afterDelay:0.05f];
+                  shorteningURLHUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+                  [self.navigationController.view addSubview:shorteningURLHUD];
+                  shorteningURLHUD.mode = MBProgressHUDModeIndeterminate;
+                  shorteningURLHUD.labelText = @"Shortening URL...";
+                  [shorteningURLHUD show:YES];
                   }
                   else {*/
             NSURL *url = [NSURL URLWithString:link];
@@ -138,84 +117,45 @@
             //}
         }
             break;
-        case 4: {
-            NSURL *url = [NSURL URLWithString:link];
-            SHKItem *item = [SHKItem URL:url title:articletitle];
-            [SHKSafari shareItem:item];
+        case 3: {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
         }
-            break;
-        case 5: {
-            [SHK logoutOfAll];
-            
-            SPBuzzAppDelegate *appDelegate = (SPBuzzAppDelegate*)[UIApplication sharedApplication].delegate;
-            
-            [appDelegate.facebook logout:appDelegate];   
-            
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults removeObjectForKey:@"FBAccessTokenKey"];
-            [defaults removeObjectForKey:@"FBExpirationDateKey"];   
-            
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Successfully Logged Out."  
-                                                           message:nil
-                                                          delegate:self 
-                                                 cancelButtonTitle:nil
-                                                 otherButtonTitles:@"Ok", nil];
-            [alert show];
-            [alert release];
-        }
-        default:
             break;
     }
 }
 
-/*
- - (void)addSpinner {
- UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
- 
- // Adjust the indicator so it is up a few pixels from the bottom of the alert
- indicator.center = CGPointMake(shortenURLAlert.bounds.size.width / 2, shortenURLAlert.bounds.size.height - 50);
- [indicator startAnimating];
- [shortenURLAlert addSubview:indicator];
- [indicator release];
- }
- 
- - (void)requestFinished:(ASIHTTPRequest *)theRequest { 
- 
- [shortenURLAlert dismissWithClickedButtonIndex:0 animated:YES];
- 
- NSString *response = [[request responseString]stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
- NSURL *responseURL = [NSURL URLWithString:response];
- TWTweetComposeViewController *tweet = [[TWTweetComposeViewController alloc]init];
- [tweet setInitialText:articletitle];
- [tweet addURL:responseURL];
- [self presentModalViewController:tweet animated:YES];
- [tweet release];
- }
- 
- - (void)requestFailed:(ASIHTTPRequest *)theRequest {      
- 
- [shortenURLAlert dismissWithClickedButtonIndex:0 animated:YES];
- 
- UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Shorten URL failed" 
- message:@"Please try again." 
- delegate:self 
- cancelButtonTitle:nil 
- otherButtonTitles:@"OK", nil];
- [alert show];
- [alert release];
- }
- */
+- (void)requestFinished:(ASIHTTPRequest *)theRequest {  
+    [shorteningURLHUD hide:YES];
+    NSString *response = [[theRequest responseString]stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSURL *responseURL = [NSURL URLWithString:response];
+    TWTweetComposeViewController *tweet = [[TWTweetComposeViewController alloc]init];
+    [tweet setInitialText:articletitle];
+    [tweet addURL:responseURL];
+    [self presentModalViewController:tweet animated:YES];
+    [tweet release];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)theRequest { 
+    [shorteningURLHUD hide:YES];
+    MBProgressHUD *errorHUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:errorHUD];
+	errorHUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Error.png"]] autorelease];
+    errorHUD.mode = MBProgressHUDModeCustomView;
+    errorHUD.labelText = @"Shorten URL failed";
+    [errorHUD show:YES];
+	[errorHUD hide:YES afterDelay:1.5];
+    [errorHUD release];
+}
+
 - (void)shareButtonSelected {
-    
-    if (isActionSheetDisplayed == YES) {
+    if (isActionSheetDisplayed)
         return;
-    }
     
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:nil
                                                             delegate:self 
                                                    cancelButtonTitle:@"Cancel" 
-                                              destructiveButtonTitle:@"Clear cache"
-                                                   otherButtonTitles:@"Email",@"Post to Facebook",@"Post to Twitter",@"Open in Safari",@"Logout Facebook/Twitter",nil];
+                                              destructiveButtonTitle:nil
+                                                   otherButtonTitles:@"Email",@"Post to Facebook",@"Post to Twitter",@"Open in Safari",nil];
     [popupQuery showFromBarButtonItem:actionButton animated:YES];
     [popupQuery release];
     

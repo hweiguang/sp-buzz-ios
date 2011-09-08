@@ -7,8 +7,6 @@
 //
 
 #import "CustomTableViewCell.h"
-#import <QuartzCore/QuartzCore.h>
-#import "Constants.h"
 
 @implementation CustomTableViewCell
 

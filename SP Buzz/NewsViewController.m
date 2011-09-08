@@ -7,22 +7,12 @@
 //
 
 #import "NewsViewController.h"
-#import "Constants.h"
-#import "TBXML.h"
-#import "FeedObject.h"
-#import "CustomTableViewCell.h"
-#import "DetailViewController.h"
-#import "SPBuzzAppDelegate.h"
-#import "MBProgressHUD.h"
 
 @implementation NewsViewController
-
-#define kCustomRowHeight    110.0
 
 - (void)dealloc {
     [data release];
     [imageDownloadinProgress release];
-    [activity release];
     [request clearDelegatesAndCancel];
     [request release];
     [super dealloc];
@@ -32,7 +22,7 @@
 {
     [super viewDidLoad];
     
-    self.tableView.rowHeight = kCustomRowHeight;
+    self.tableView.rowHeight = 115.0;
     self.tableView.separatorColor = [UIColor lightGrayColor];
     self.tableView.backgroundColor = UIColorFromRGB(0xE0FFFF);
     
@@ -47,16 +37,17 @@
     data = [[NSMutableArray alloc]init];
     imageDownloadinProgress = [[NSMutableArray alloc]init];
     
-    activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activity.center = CGPointMake(160,185);
-    [self.view addSubview:activity];
+    loadingHUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:loadingHUD];
+    loadingHUD.mode = MBProgressHUDModeIndeterminate;
+    loadingHUD.labelText = @"Loading...";
+    [loadingHUD show:YES];
     
     [self downloadXML];
 }
 
 - (void)downloadXML {
     loading = YES;
-    [activity startAnimating];
     
     NSURL *url = [NSURL URLWithString:NewsFeedURL];
     request = [ASIHTTPRequest requestWithURL:url];
@@ -80,23 +71,17 @@
     else {
         loading = NO;
         [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
-        [activity stopAnimating];
     }
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.navigationController.view addSubview:HUD];
-	
-	// The sample image is based on the work by http://www.pixelpressicons.com, http://creativecommons.org/licenses/by/2.5/ca/
-	// Make the customViews 37 by 37 pixels for best results (those are the bounds of the build-in progress indicators)
-	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Error.png"]] autorelease];
-	
-    // Set custom view mode
-    HUD.mode = MBProgressHUDModeCustomView;
     
-    HUD.labelText = @"Update failed";
-	HUD.detailsLabelText = @"No Internet Connection";
-    [HUD show:YES];
-	[HUD hide:YES afterDelay:1.0];
-    [HUD release];
+    MBProgressHUD *errorHUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:errorHUD];
+	errorHUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Error.png"]] autorelease];
+    errorHUD.mode = MBProgressHUDModeCustomView;
+    errorHUD.labelText = @"Update failed";
+	errorHUD.detailsLabelText = @"No Internet Connection";
+    [errorHUD show:YES];
+	[errorHUD hide:YES afterDelay:1.5];
+    [errorHUD release];
 }
 
 - (void)parseXML {  
@@ -145,7 +130,13 @@
     
     [self.tableView reloadData];
     loading = NO;
-    [activity stopAnimating];
+    
+    if (loadingHUD != nil) {
+        [loadingHUD hide:YES];
+        [loadingHUD release];
+        loadingHUD = nil;
+    }
+    
     [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
     
     //If device is iPad load the first article to detail view

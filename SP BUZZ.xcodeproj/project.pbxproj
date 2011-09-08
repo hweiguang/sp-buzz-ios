@@ -33,7 +33,6 @@
 		8704C9BB140A27670050CF29 /* SHKSharers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8704C942140A27670050CF29 /* SHKSharers.plist */; };
 		8704C9C0140A27670050CF29 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8704C94D140A27670050CF29 /* Localizable.strings */; };
 		8704C9C2140A27670050CF29 /* SHKMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C957140A27670050CF29 /* SHKMail.m */; };
-		8704C9C3140A27670050CF29 /* SHKSafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C95A140A27670050CF29 /* SHKSafari.m */; };
 		8704C9D8140A27670050CF29 /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C98F140A27670050CF29 /* SHKTwitter.m */; };
 		8704C9D9140A27670050CF29 /* SHKTwitterForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C991140A27670050CF29 /* SHKTwitterForm.m */; };
 		8704C9DA140A27670050CF29 /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704C995140A27670050CF29 /* SHKActionSheet.m */; };
@@ -122,6 +121,8 @@
 		87D437F614063AB200D89089 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D437F514063AB200D89089 /* AboutViewController.xib */; };
 		87D6538914033A760010B8F2 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D6538814033A760010B8F2 /* CustomTableViewCell.m */; };
 		87D653A1140343490010B8F2 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D653A0140343490010B8F2 /* DetailViewController.m */; };
+		87E81B811418546F00300121 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87E81B801418546F00300121 /* Settings.bundle */; };
+		87E81B8414185AE400300121 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87E81B8314185AE400300121 /* Twitter.framework */; };
 		87EB75AB1406370200739662 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB75AA1406370200739662 /* MasterViewController.m */; };
 		87EB75B7140637CF00739662 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EB75B5140637CF00739662 /* MainWindow-iPad.xib */; };
 /* End PBXBuildFile section */
@@ -180,8 +181,6 @@
 		8704C94F140A27670050CF29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8704C956140A27670050CF29 /* SHKMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKMail.h; sourceTree = "<group>"; };
 		8704C957140A27670050CF29 /* SHKMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKMail.m; sourceTree = "<group>"; };
-		8704C959140A27670050CF29 /* SHKSafari.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSafari.h; sourceTree = "<group>"; };
-		8704C95A140A27670050CF29 /* SHKSafari.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSafari.m; sourceTree = "<group>"; };
 		8704C98E140A27670050CF29 /* SHKTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTwitter.h; sourceTree = "<group>"; };
 		8704C98F140A27670050CF29 /* SHKTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTwitter.m; sourceTree = "<group>"; };
 		8704C990140A27670050CF29 /* SHKTwitterForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTwitterForm.h; sourceTree = "<group>"; };
@@ -331,6 +330,8 @@
 		87D6538814033A760010B8F2 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		87D6539F140343490010B8F2 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		87D653A0140343490010B8F2 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		87E81B801418546F00300121 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
+		87E81B8314185AE400300121 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		87EB75A91406370200739662 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		87EB75AA1406370200739662 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		87EB75B6140637CF00739662 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "iPad/en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
@@ -347,6 +348,7 @@
 				871F865F140235D10063AC65 /* UIKit.framework in Frameworks */,
 				871F8661140235D10063AC65 /* Foundation.framework in Frameworks */,
 				872DDF13140B2D46000854C7 /* CoreGraphics.framework in Frameworks */,
+				87E81B8414185AE400300121 /* Twitter.framework in Frameworks */,
 				872DDF11140B2D3F000854C7 /* QuartzCore.framework in Frameworks */,
 				8750BA6814023BD700E1A330 /* CFNetwork.framework in Frameworks */,
 				8750BA7014023C3500E1A330 /* MobileCoreServices.framework in Frameworks */,
@@ -504,7 +506,6 @@
 			isa = PBXGroup;
 			children = (
 				8704C955140A27670050CF29 /* Email */,
-				8704C958140A27670050CF29 /* Open in Safari */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -516,15 +517,6 @@
 				8704C957140A27670050CF29 /* SHKMail.m */,
 			);
 			path = Email;
-			sourceTree = "<group>";
-		};
-		8704C958140A27670050CF29 /* Open in Safari */ = {
-			isa = PBXGroup;
-			children = (
-				8704C959140A27670050CF29 /* SHKSafari.h */,
-				8704C95A140A27670050CF29 /* SHKSafari.m */,
-			);
-			path = "Open in Safari";
 			sourceTree = "<group>";
 		};
 		8704C95E140A27670050CF29 /* Services */ = {
@@ -608,6 +600,7 @@
 		871F865D140235D10063AC65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				87E81B8314185AE400300121 /* Twitter.framework */,
 				8745D24B141604E90051A4A1 /* libz.1.2.5.dylib */,
 				872DDF12140B2D46000854C7 /* CoreGraphics.framework */,
 				872DDF10140B2D3E000854C7 /* QuartzCore.framework */,
@@ -649,6 +642,7 @@
 		871F8665140235D10063AC65 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				87E81B801418546F00300121 /* Settings.bundle */,
 				871F8666140235D10063AC65 /* SP BUZZ-Info.plist */,
 				871F8667140235D10063AC65 /* InfoPlist.strings */,
 				871F866A140235D10063AC65 /* main.m */,
@@ -958,6 +952,7 @@
 				879C6097140DE8F5001C9192 /* FBConnect.bundle in Resources */,
 				879C6098140DE8F5001C9192 /* FBDialog.bundle in Resources */,
 				877F227614173DFC0098F739 /* Error.png in Resources */,
+				87E81B811418546F00300121 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1017,7 +1012,6 @@
 				8704C9B9140A27670050CF29 /* SHKItem.m in Sources */,
 				8704C9BA140A27670050CF29 /* SHKOfflineSharer.m in Sources */,
 				8704C9C2140A27670050CF29 /* SHKMail.m in Sources */,
-				8704C9C3140A27670050CF29 /* SHKSafari.m in Sources */,
 				8704C9D8140A27670050CF29 /* SHKTwitter.m in Sources */,
 				8704C9D9140A27670050CF29 /* SHKTwitterForm.m in Sources */,
 				8704C9DA140A27670050CF29 /* SHKActionSheet.m in Sources */,
