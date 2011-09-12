@@ -94,21 +94,21 @@
     // Load and parse the Locations.xml file in document directory
     TBXML *tbxml = [[TBXML tbxmlWithXMLData:[NSData dataWithContentsOfFile:XMLPath]] retain];
     
-	// Obtain root element
-	TBXMLElement * root = tbxml.rootXMLElement;
+    // Obtain root element
+    TBXMLElement * root = tbxml.rootXMLElement;
     
-	// if root element is valid
-	if (root) {
-		// search for the first category element within the root element's children
-		TBXMLElement * channel = [TBXML childElementNamed:@"channel" parentElement:root];
+    // if root element is valid
+    if (root) {
+        // search for the first category element within the root element's children
+        TBXMLElement * channel = [TBXML childElementNamed:@"channel" parentElement:root];
         
         TBXMLElement * item = [TBXML childElementNamed:@"item" parentElement:channel];
-		// if an location element was found
-		while (item != nil) {
+        // if an location element was found
+        while (item != nil) {
             FeedObject *aFeedObject = [[FeedObject alloc] init];
             
             TBXMLElement * title = [TBXML childElementNamed:@"title" parentElement:item];
-			aFeedObject.title = [TBXML textForElement:title];
+            aFeedObject.title = [TBXML textForElement:title];
             
             TBXMLElement *description = [TBXML childElementNamed:@"description" parentElement:item]; 
             aFeedObject.description = [TBXML textForElement:description];
@@ -140,7 +140,7 @@
     [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
     
     //If device is iPad load the first article to detail view
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && [data count] > 0) {
         
         FeedObject *aFeedObject = [data objectAtIndex:0];
         
@@ -153,6 +153,7 @@
             appDelegate.detailViewController.link = aFeedObject.link;
             [appDelegate.detailViewController reloadData];
         }
+        
     }
 }
 
