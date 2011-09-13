@@ -19,10 +19,10 @@
 {
     self = [super init];
     if (self) {
-        title = [NSString string];
-        description = [NSString string];
-        link = [NSString string];
-        comments = [NSString string]; 
+        self.title = [NSString string];
+        self.description = [NSString string];
+        self.link = [NSString string];
+        self.comments = [NSString string]; 
     }
     
     return self;

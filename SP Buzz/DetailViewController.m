@@ -30,9 +30,9 @@
 
 - (void)reloadData {
     NSString *imageName = [articletitle stringByAppendingString:@".jpg"];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [cachesDirectory stringByAppendingPathComponent:imageName];
     
     NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
     

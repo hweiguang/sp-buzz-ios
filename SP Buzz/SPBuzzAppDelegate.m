@@ -30,7 +30,7 @@
     
     if ([defaults boolForKey:@"logout"]) {
         [SHK logoutOfAll];
-        [self.facebook logout:self];   
+        [facebook logout:self];   
         [defaults removeObjectForKey:@"FBAccessTokenKey"];
         [defaults removeObjectForKey:@"FBExpirationDateKey"]; 
         [defaults setBool:NO forKey:@"logout"];
@@ -38,11 +38,11 @@
     }
     
     if ([defaults boolForKey:@"clearcache"]) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentDirectory = [paths objectAtIndex:0]; 
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *cachesDirectory = [paths objectAtIndex:0]; 
         NSError *error = nil;
-        for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentDirectory error:&error]) {
-            [[NSFileManager defaultManager] removeItemAtPath:[documentDirectory stringByAppendingPathComponent:file] error:&error];
+        for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:cachesDirectory error:&error]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[cachesDirectory stringByAppendingPathComponent:file] error:&error];
         }
         [defaults setBool:NO forKey:@"clearcache"];
         [defaults synchronize];

@@ -79,9 +79,9 @@
     imageConnection = [ASIHTTPRequest requestWithURL:url];
     [imageConnection setDelegate:self];
     NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [cachesDirectory stringByAppendingPathComponent:imageName];
     
     [imageConnection setDownloadDestinationPath:imagePath]; //Set to save the file to documents directory
     [imageConnection startAsynchronous]; //Start request

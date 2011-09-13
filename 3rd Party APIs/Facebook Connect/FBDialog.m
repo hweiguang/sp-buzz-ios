@@ -346,7 +346,7 @@ BOOL FBIsDeviceIPad() {
     [self addSubview:_webView];
 
     _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:
-      UIActivityIndicatorViewStyleWhiteLarge];
+      UIActivityIndicatorViewStyleGray];
     _spinner.autoresizingMask =
       UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin
       | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
