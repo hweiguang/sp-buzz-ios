@@ -18,39 +18,39 @@
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         //Primary Label for the title
-        titleLabel = [[UILabel alloc]init];
-        titleLabel.font = [UIFont fontWithName:@"Arial" size:14];
-        titleLabel.textColor = [UIColor redColor];
-        titleLabel.frame = CGRectMake(10,5,300,20);
+        self.titleLabel = [[UILabel alloc]init];
+        self.titleLabel.font = [UIFont fontWithName:@"Arial" size:14];
+        self.titleLabel.textColor = [UIColor redColor];
+        self.titleLabel.frame = CGRectMake(10,5,300,20);
         
         //Secondary Label for the subtitle
-        descriptionLabel = [[UILabel alloc]init];
-        descriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
-        descriptionLabel.frame = CGRectMake(145,25,170,80);
-        descriptionLabel.numberOfLines = 0;
+        self.descriptionLabel = [[UILabel alloc]init];
+        self.descriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
+        self.descriptionLabel.frame = CGRectMake(145,25,170,80);
+        self.descriptionLabel.numberOfLines = 0;
         
-        image = [[UIImageView alloc]initWithFrame:CGRectMake(10, 25, 130, 80)];
-        image.layer.masksToBounds = YES;
-        image.layer.cornerRadius = 15;
-        image.layer.borderWidth = 3;
-        image.layer.borderColor = [UIColor grayColor].CGColor;
+        self.image = [[UIImageView alloc]initWithFrame:CGRectMake(10, 25, 130, 80)];
+        self.image.layer.masksToBounds = YES;
+        self.image.layer.cornerRadius = 15;
+        self.image.layer.borderWidth = 3;
+        self.image.layer.borderColor = [UIColor grayColor].CGColor;
         
-        [self.contentView addSubview:titleLabel]; 
-        [self.contentView addSubview:descriptionLabel];
-        [self.contentView addSubview:image];
+        [self.contentView addSubview:self.titleLabel]; 
+        [self.contentView addSubview:self.descriptionLabel];
+        [self.contentView addSubview:self.image];
         
         self.contentView.backgroundColor = UIColorFromRGB(0xE0FFFF);
-        titleLabel.backgroundColor = UIColorFromRGB(0xE0FFFF);
-        descriptionLabel.backgroundColor = UIColorFromRGB(0xE0FFFF);
+        self.titleLabel.backgroundColor = UIColorFromRGB(0xE0FFFF);
+        self.descriptionLabel.backgroundColor = UIColorFromRGB(0xE0FFFF);
         
     }
     return self;
 }
 
 - (void)dealloc {
-    [titleLabel release];
-    [descriptionLabel release];
-    [image release];
+    [self.titleLabel release];
+    [self.descriptionLabel release];
+    [self.image release];
     [super dealloc];
 }
 

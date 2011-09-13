@@ -40,7 +40,7 @@
     loadingHUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:loadingHUD];
     loadingHUD.mode = MBProgressHUDModeIndeterminate;
-    loadingHUD.labelText = @"Loading...";
+    loadingHUD.labelText = @"Updating...";
     [loadingHUD show:YES];
     
     [self downloadXML];
@@ -53,9 +53,9 @@
     request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *XMLPath = [documentDirectory stringByAppendingPathComponent:@"Events.xml"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory = [paths objectAtIndex:0];
+    NSString *XMLPath = [cachesDirectory stringByAppendingPathComponent:@"Events.xml"];
     
     [request setDownloadDestinationPath:XMLPath]; //Set to save the file to documents directory
     [request startAsynchronous]; //Start request
@@ -87,9 +87,9 @@
 - (void)parseXML {  
     [data removeAllObjects];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *XMLPath = [documentDirectory stringByAppendingPathComponent:@"Events.xml"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory = [paths objectAtIndex:0];
+    NSString *XMLPath = [cachesDirectory stringByAppendingPathComponent:@"Events.xml"];
     
     // Load and parse the Locations.xml file in document directory
     TBXML *tbxml = [[TBXML tbxmlWithXMLData:[NSData dataWithContentsOfFile:XMLPath]] retain];
@@ -189,9 +189,9 @@
     
     NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [cachesDirectory stringByAppendingPathComponent:imageName];
     
     UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfFile:imagePath]];
     
@@ -210,29 +210,29 @@
 }
 
 -(NSString *)flattenHTML:(NSString *)html {
-	
+    
     NSScanner *theScanner;
     NSString *text = nil;
-	
+    
     theScanner = [NSScanner scannerWithString:html];
-	
+    
     while ([theScanner isAtEnd] == NO) {
-		
+        
         // find start of tag
         [theScanner scanUpToString:@"<" intoString:NULL] ; 
-		
+        
         // find end of tag
         [theScanner scanUpToString:@">" intoString:&text] ;
-		
+        
         // replace the found tag with a space
         //(you can filter multi-spaces out later if you wish)
         html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text]
-											   withString:@" "];
-		
+                                               withString:@" "];
+        
     } // while //
     
     return html;
-	
+    
 }
 
 #pragma mark - Table view delegate
@@ -278,11 +278,11 @@
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view {
-	return loading; // should return if data source model is reloading
+    return loading; // should return if data source model is reloading
 }
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view {
-	return [NSDate date]; // should return date data source was last changed
+    return [NSDate date]; // should return date data source was last changed
 }
 
 #pragma mark -
@@ -293,7 +293,7 @@
 {
     [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
     if (!decelerate)
-	{
+    {
         [self loadImagesForOnscreenRows];
     }
 }
@@ -339,9 +339,9 @@
             
             NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
             
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentDirectory = [paths objectAtIndex:0];
-            NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *cachesDirectory = [paths objectAtIndex:0];
+            NSString *imagePath = [cachesDirectory stringByAppendingPathComponent:imageName];
             
             UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfFile:imagePath]];
             

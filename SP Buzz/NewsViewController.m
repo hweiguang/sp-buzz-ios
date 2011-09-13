@@ -40,7 +40,7 @@
     loadingHUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:loadingHUD];
     loadingHUD.mode = MBProgressHUDModeIndeterminate;
-    loadingHUD.labelText = @"Loading...";
+    loadingHUD.labelText = @"Updating...";
     [loadingHUD show:YES];
     
     [self downloadXML];
@@ -53,9 +53,9 @@
     request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *XMLPath = [documentDirectory stringByAppendingPathComponent:@"News.xml"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory = [paths objectAtIndex:0];
+    NSString *XMLPath = [cachesDirectory stringByAppendingPathComponent:@"News.xml"];
     
     [request setDownloadDestinationPath:XMLPath]; //Set to save the file to documents directory
     [request startAsynchronous]; //Start request
@@ -87,9 +87,9 @@
 - (void)parseXML {  
     [data removeAllObjects];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *XMLPath = [documentDirectory stringByAppendingPathComponent:@"News.xml"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory = [paths objectAtIndex:0];
+    NSString *XMLPath = [cachesDirectory stringByAppendingPathComponent:@"News.xml"];
     
     // Load and parse the Locations.xml file in document directory
     TBXML *tbxml = [[TBXML tbxmlWithXMLData:[NSData dataWithContentsOfFile:XMLPath]] retain];
@@ -189,9 +189,9 @@
     
     NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [cachesDirectory stringByAppendingPathComponent:imageName];
     
     UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfFile:imagePath]];
     
@@ -339,9 +339,9 @@
             
             NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
             
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentDirectory = [paths objectAtIndex:0];
-            NSString *imagePath = [documentDirectory stringByAppendingPathComponent:imageName];
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *cachesDirectory = [paths objectAtIndex:0];
+            NSString *imagePath = [cachesDirectory stringByAppendingPathComponent:imageName];
             
             UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfFile:imagePath]];
             
