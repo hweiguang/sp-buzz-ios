@@ -10,9 +10,11 @@
 
 @implementation EventsViewController
 
+@synthesize imageDownloadsInProgress;
+
 - (void)dealloc {
     [data release];
-    [imageDownloadinProgress release];
+    [imageDownloadsInProgress release];
     [request clearDelegatesAndCancel];
     [request release];
     [super dealloc];
@@ -35,7 +37,7 @@
 	}
     
     data = [[NSMutableArray alloc]init];
-    imageDownloadinProgress = [[NSMutableArray alloc]init];
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
     loadingHUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:loadingHUD];
@@ -175,17 +177,54 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    CustomTableViewCell *cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UILabel *titleLabel;
+    UILabel *descriptionLabel;
+    UIImageView *imageView;
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[CustomTableViewCell alloc]initWithFrame:CGRectZero]autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        //Primary Label for the title
+        titleLabel = [[UILabel alloc]init];
+        titleLabel.font = [UIFont fontWithName:@"Arial" size:14];
+        titleLabel.textColor = [UIColor redColor];
+        titleLabel.frame = CGRectMake(10,5,300,20);
+        titleLabel.tag = 1;
+        
+        //Secondary Label for the subtitle
+        descriptionLabel = [[UILabel alloc]init];
+        descriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
+        descriptionLabel.frame = CGRectMake(145,25,170,80);
+        descriptionLabel.numberOfLines = 0;
+        descriptionLabel.tag = 2;
+        
+        imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 25, 130, 80)];
+        imageView.layer.masksToBounds = YES;
+        imageView.layer.cornerRadius = 15;
+        imageView.layer.borderWidth = 3;
+        imageView.layer.borderColor = [UIColor grayColor].CGColor;
+        imageView.tag = 3;
+        
+        [cell.contentView addSubview:titleLabel]; 
+        [cell.contentView addSubview:descriptionLabel];
+        [cell.contentView addSubview:imageView];
+        
+        cell.contentView.backgroundColor = UIColorFromRGB(0xE0FFFF);
+        titleLabel.backgroundColor = UIColorFromRGB(0xE0FFFF);
+        descriptionLabel.backgroundColor = UIColorFromRGB(0xE0FFFF);
+    }
+    else {
+        titleLabel = (UILabel *)[cell.contentView viewWithTag:1];
+        descriptionLabel = (UILabel *)[cell.contentView viewWithTag:2];
+        imageView = (UIImageView *)[cell.contentView viewWithTag:3];
     }
     
     FeedObject *aFeedObject = [data objectAtIndex:indexPath.row];
     
     NSString *description = [self flattenHTML:aFeedObject.description];
     
-    cell.titleLabel.text = aFeedObject.title;
-    cell.descriptionLabel.text = description;
+    titleLabel.text = aFeedObject.title;
+    descriptionLabel.text = description;
     
     NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
     
@@ -198,12 +237,12 @@
     if (!image)
     {
         if (!self.tableView.dragging && !self.tableView.decelerating)
-            [self startIconDownload:aFeedObject];
+            [self startIconDownload:aFeedObject forIndexPath:indexPath];
         // if a download is deferred or in progress, return a placeholder image
-        cell.image.image = [UIImage imageNamed:@"Placeholder.png"];  
+        imageView.image = [UIImage imageNamed:@"Placeholder.png"];  
     }
     else
-        cell.image.image = image;
+        imageView.image = image;
     
     [image release];
     return cell;
@@ -310,22 +349,24 @@
 #pragma mark -
 #pragma mark Table cell image support
 
-- (void)startIconDownload:(FeedObject *)aFeedObject
+- (void)startIconDownload:(FeedObject *)aFeedObject forIndexPath:(NSIndexPath *)indexPath
 {
-    if (![imageDownloadinProgress containsObject:aFeedObject]) {
-        [imageDownloadinProgress addObject:aFeedObject];
-        IconDownloader *iconDownloader = [[IconDownloader alloc] init];
+    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader == nil) 
+    {
+        iconDownloader = [[IconDownloader alloc] init];
         iconDownloader.aFeedObject = aFeedObject;
         iconDownloader.delegate = self;
+        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
         [iconDownloader startDownload];
-    }  
+        [iconDownloader release];   
+    } 
 }
 
 // called by our ImageDownloader when an icon is ready to be displayed
 - (void)appImageDidLoad:(FeedObject *)aFeedObject
 {
     [self.tableView reloadData];
-    [imageDownloadinProgress removeObject:aFeedObject];
 }
 
 - (void)loadImagesForOnscreenRows
@@ -346,7 +387,7 @@
             UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfFile:imagePath]];
             
             if (!image) // avoid the app icon download if the app already has an icon
-                [self startIconDownload:aFeedObject];
+                [self startIconDownload:aFeedObject forIndexPath:indexPath];
             [image release];
         }
     }

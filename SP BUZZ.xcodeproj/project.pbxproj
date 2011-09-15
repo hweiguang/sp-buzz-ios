@@ -117,7 +117,6 @@
 		87D437F214063AA200D89089 /* aboutData.html in Resources */ = {isa = PBXBuildFile; fileRef = 87D437F014063AA200D89089 /* aboutData.html */; };
 		87D437F314063AA200D89089 /* SP_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D437F114063AA200D89089 /* SP_logo.png */; };
 		87D437F614063AB200D89089 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D437F514063AB200D89089 /* AboutViewController.xib */; };
-		87D6538914033A760010B8F2 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D6538814033A760010B8F2 /* CustomTableViewCell.m */; };
 		87D653A1140343490010B8F2 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D653A0140343490010B8F2 /* DetailViewController.m */; };
 		87E81B811418546F00300121 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87E81B801418546F00300121 /* Settings.bundle */; };
 		87E81B8414185AE400300121 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87E81B8314185AE400300121 /* Twitter.framework */; };
@@ -321,8 +320,6 @@
 		87D437F014063AA200D89089 /* aboutData.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = aboutData.html; path = Resources/aboutData.html; sourceTree = "<group>"; };
 		87D437F114063AA200D89089 /* SP_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SP_logo.png; path = Resources/SP_logo.png; sourceTree = "<group>"; };
 		87D437F514063AB200D89089 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
-		87D6538714033A760010B8F2 /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
-		87D6538814033A760010B8F2 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		87D6539F140343490010B8F2 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		87D653A0140343490010B8F2 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		87E81B801418546F00300121 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
@@ -618,8 +615,6 @@
 				871F866E140235D10063AC65 /* SPBuzzAppDelegate.m */,
 				876934B9140242BB001010F9 /* FeedObject.h */,
 				876934BA140242BB001010F9 /* FeedObject.m */,
-				87D6538714033A760010B8F2 /* CustomTableViewCell.h */,
-				87D6538814033A760010B8F2 /* CustomTableViewCell.m */,
 				871F8679140236AC0063AC65 /* NewsViewController.h */,
 				871F867A140236AC0063AC65 /* NewsViewController.m */,
 				871F867C140236C20063AC65 /* EventsViewController.h */,
@@ -976,7 +971,6 @@
 				8750BA6114023B2D00E1A330 /* TBXML.m in Sources */,
 				876934BB140242BB001010F9 /* FeedObject.m in Sources */,
 				87665B1914024B7200187E63 /* IconDownloader.m in Sources */,
-				87D6538914033A760010B8F2 /* CustomTableViewCell.m in Sources */,
 				87D653A1140343490010B8F2 /* DetailViewController.m in Sources */,
 				87EB75AB1406370200739662 /* MasterViewController.m in Sources */,
 				8704C9A4140A27670050CF29 /* SHKOAuthSharer.m in Sources */,
@@ -1144,8 +1138,8 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SP Buzz/SP BUZZ-Prefix.pch";
@@ -1154,6 +1148,8 @@
 				INFOPLIST_FILE = "SP Buzz/SP BUZZ-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "SP BUZZ";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
