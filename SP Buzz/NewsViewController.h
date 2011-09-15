@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "SPBuzzAppDelegate.h"
 #import "DetailViewController.h"
 #import "EGORefreshTableHeaderView.h"
@@ -16,21 +17,22 @@
 #import "Constants.h"
 #import "TBXML.h"
 #import "FeedObject.h"
-#import "CustomTableViewCell.h"
 
 @interface NewsViewController : UITableViewController <EGORefreshTableHeaderDelegate,UIScrollViewDelegate,IconDownloaderDelegate> {
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL loading;
     
     NSMutableArray *data;
-    NSMutableArray *imageDownloadinProgress;
+    NSMutableDictionary *imageDownloadinProgress;
     ASIHTTPRequest *request;
     
     MBProgressHUD *loadingHUD;
 }
 
+@property (nonatomic,retain) NSMutableDictionary *imageDownloadsInProgress;
+
 - (void)appImageDidLoad:(FeedObject *)aFeedObject;
-- (void)startIconDownload:(FeedObject *)aFeedObject;
+- (void)startIconDownload:(FeedObject *)aFeedObject forIndexPath:(NSIndexPath *)indexPath;
 - (void)loadImagesForOnscreenRows;
 
 - (void)downloadXML;
