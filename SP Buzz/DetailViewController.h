@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Twitter/Twitter.h>
+//#import <Twitter/Twitter.h>
 #import "SPBuzzAppDelegate.h"
 #import "Constants.h"
 #import "Base64.h"

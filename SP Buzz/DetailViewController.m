@@ -123,7 +123,7 @@
             break;
     }
 }
-
+/*
 - (void)requestFinished:(ASIHTTPRequest *)theRequest {  
     [shorteningURLHUD hide:YES];
     NSString *response = [[theRequest responseString]stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
@@ -146,7 +146,7 @@
 	[errorHUD hide:YES afterDelay:1.5];
     [errorHUD release];
 }
-
+*/
 - (void)shareButtonSelected {
     if (isActionSheetDisplayed)
         return;
