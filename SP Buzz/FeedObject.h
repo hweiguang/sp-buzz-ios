@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface FeedObject : NSObject {
-    NSString *title;
-    NSString *description;
-    NSString *link;
-    NSString *comments;
+    NSString *title; //News title
+    NSString *description; //News article
+    NSString *link; //Link to news article
+    NSString *comments; //Image link
 }
 
 @property (nonatomic,retain) NSString *title;

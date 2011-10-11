@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import <Twitter/Twitter.h>
+#import <Twitter/Twitter.h>
 #import "SPBuzzAppDelegate.h"
 #import "Constants.h"
 #import "Base64.h"
@@ -19,12 +19,12 @@
 #import "MBProgressHUD.h"
 
 @interface DetailViewController : UIViewController <UIWebViewDelegate,UIActionSheetDelegate,FBDialogDelegate> {
-    UIWebView *webView;
+    UIWebView *webView; //WebView for showing news articel
     NSString *articletitle;
     NSString *description;
     NSString *comments;
     NSString *link;
-    NSTimer *timer;
+    NSTimer *timer;//Timer for checking WebView status
     UIBarButtonItem *actionButton;
     
     BOOL isActionSheetDisplayed;
@@ -41,6 +41,6 @@
 
 - (void)reloadData;
 - (void)loading;
-- (void)shareButtonSelected;
+- (void)shareButtonSelected; //Display action sheet
 
 @end

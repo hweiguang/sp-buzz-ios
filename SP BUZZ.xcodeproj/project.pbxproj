@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		83ED23EE1421E0010060BADA /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83ED23ED1421E0010060BADA /* libz.1.2.3.dylib */; };
 		83ED23F21421F4750060BADA /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 83ED23F11421F4750060BADA /* Icon.png */; };
 		83ED23F41421F47A0060BADA /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83ED23F31421F47A0060BADA /* Icon@2x.png */; };
 		83ED23F61421F48A0060BADA /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 83ED23F51421F48A0060BADA /* Icon-72.png */; };
@@ -67,6 +66,8 @@
 		871F868E140238DB0063AC65 /* News.png in Resources */ = {isa = PBXBuildFile; fileRef = 871F8688140238DB0063AC65 /* News.png */; };
 		871F868F140238DB0063AC65 /* News@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 871F8689140238DB0063AC65 /* News@2x.png */; };
 		872CC4A81416FADB009DC60D /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 872CC4A71416FADB009DC60D /* Base64.m */; };
+		872DB87F144407350033EB71 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 872DB87E144407350033EB71 /* libz.1.2.5.dylib */; };
+		872DB88214440D130033EB71 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872DB88114440D120033EB71 /* Twitter.framework */; };
 		872DDF11140B2D3F000854C7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872DDF10140B2D3E000854C7 /* QuartzCore.framework */; };
 		872DDF13140B2D46000854C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872DDF12140B2D46000854C7 /* CoreGraphics.framework */; };
 		8730374B1407AC4900964D55 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8730374A1407AC4900964D55 /* Security.framework */; };
@@ -124,7 +125,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		83ED23ED1421E0010060BADA /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		83ED23F11421F4750060BADA /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../../Icon.png; sourceTree = "<group>"; };
 		83ED23F31421F47A0060BADA /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../../Icon@2x.png"; sourceTree = "<group>"; };
 		83ED23F51421F48A0060BADA /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../../Icon-72.png"; sourceTree = "<group>"; };
@@ -234,6 +234,8 @@
 		871F8689140238DB0063AC65 /* News@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "News@2x.png"; path = "Resources/News@2x.png"; sourceTree = "<group>"; };
 		872CC4A61416FADB009DC60D /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		872CC4A71416FADB009DC60D /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		872DB87E144407350033EB71 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		872DB88114440D120033EB71 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		872DDF10140B2D3E000854C7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		872DDF12140B2D46000854C7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		8730374A1407AC4900964D55 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -332,7 +334,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83ED23EE1421E0010060BADA /* libz.1.2.3.dylib in Frameworks */,
+				872DB88214440D130033EB71 /* Twitter.framework in Frameworks */,
+				872DB87F144407350033EB71 /* libz.1.2.5.dylib in Frameworks */,
 				8730374D1407AC5800964D55 /* MessageUI.framework in Frameworks */,
 				8730374B1407AC4900964D55 /* Security.framework in Frameworks */,
 				871F865F140235D10063AC65 /* UIKit.framework in Frameworks */,
@@ -589,7 +592,8 @@
 		871F865D140235D10063AC65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				83ED23ED1421E0010060BADA /* libz.1.2.3.dylib */,
+				872DB88114440D120033EB71 /* Twitter.framework */,
+				872DB87E144407350033EB71 /* libz.1.2.5.dylib */,
 				872DDF12140B2D46000854C7 /* CoreGraphics.framework */,
 				872DDF10140B2D3E000854C7 /* QuartzCore.framework */,
 				8730374C1407AC5800964D55 /* MessageUI.framework */,

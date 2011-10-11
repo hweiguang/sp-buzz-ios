@@ -19,11 +19,11 @@
 #import "FeedObject.h"
 
 @interface NewsViewController : UITableViewController <EGORefreshTableHeaderDelegate,UIScrollViewDelegate,IconDownloaderDelegate> {
-    EGORefreshTableHeaderView *_refreshHeaderView;
-    BOOL loading;
+    EGORefreshTableHeaderView *_refreshHeaderView;//Pull to refresh View
+    BOOL loading;//Downloading XML status
     
-    NSMutableArray *data;
-    NSMutableDictionary *imageDownloadinProgress;
+    NSMutableArray *data; //Array for storing all the news feed
+    NSMutableDictionary *imageDownloadinProgress; //Dictionary that keep tracks of which image are being download
     ASIHTTPRequest *request;
     
     MBProgressHUD *loadingHUD;
@@ -31,12 +31,11 @@
 
 @property (nonatomic,retain) NSMutableDictionary *imageDownloadsInProgress;
 
-- (void)appImageDidLoad:(FeedObject *)aFeedObject;
-- (void)startIconDownload:(FeedObject *)aFeedObject forIndexPath:(NSIndexPath *)indexPath;
-- (void)loadImagesForOnscreenRows;
-
+- (void)appImageDidLoad:(FeedObject *)aFeedObject; //Called when image has been downloaded
+- (void)startIconDownload:(FeedObject *)aFeedObject forIndexPath:(NSIndexPath *)indexPath; //Start download if image is not available
+- (void)loadImagesForOnscreenRows; //Load image for visible path
 - (void)downloadXML;
 - (void)parseXML;
-- (NSString *)flattenHTML:(NSString *)html;
+- (NSString *)flattenHTML:(NSString *)html;//Get rid of HTML tags
 
 @end

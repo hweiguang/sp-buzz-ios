@@ -24,10 +24,12 @@
 {
     [super viewDidLoad];
     
+    //Setting up tableview
     self.tableView.rowHeight = 115.0;
     self.tableView.separatorColor = [UIColor lightGrayColor];
     self.tableView.backgroundColor = UIColorFromRGB(0xE0FFFF);
     
+    //Adding Pull to Refresh view to tableview
 	if (_refreshHeaderView == nil) {
 		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
 		view.delegate = self;
@@ -39,6 +41,7 @@
     data = [[NSMutableArray alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
+    //Show HUD while XML is being download only for the first time,does not show when pull to refresh is triggered
     loadingHUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:loadingHUD];
     loadingHUD.mode = MBProgressHUDModeIndeterminate;
@@ -59,7 +62,7 @@
     NSString *cachesDirectory = [paths objectAtIndex:0];
     NSString *XMLPath = [cachesDirectory stringByAppendingPathComponent:@"Events.xml"];
     
-    [request setDownloadDestinationPath:XMLPath]; //Set to save the file to documents directory
+    [request setDownloadDestinationPath:XMLPath]; //Set to save the file to cache directory
     [request startAsynchronous]; //Start request
 }
 
@@ -133,6 +136,7 @@
     [self.tableView reloadData];
     loading = NO;
     
+    //Remove loadingHUD
     if (loadingHUD != nil) {
         [loadingHUD hide:YES];
         [loadingHUD release];
@@ -226,8 +230,8 @@
     titleLabel.text = aFeedObject.title;
     descriptionLabel.text = description;
     
+    //Checking for image in cache directory
     NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
-    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cachesDirectory = [paths objectAtIndex:0];
     NSString *imagePath = [cachesDirectory stringByAppendingPathComponent:imageName];
@@ -282,7 +286,7 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];  
-        
+        //On iPhone create detailVC and pass parameters for loading
         DetailViewController *detailVC = [[DetailViewController alloc]init];
         detailVC.articletitle = aFeedObject.title;
         detailVC.description = aFeedObject.description;
@@ -300,6 +304,7 @@
         [detailVC release];
     }
     else {
+        //On iPad pass parameters and reload data
         SPBuzzAppDelegate *appDelegate = (SPBuzzAppDelegate*)[UIApplication sharedApplication].delegate;
         appDelegate.detailViewController.articletitle = aFeedObject.title;
         appDelegate.detailViewController.description = aFeedObject.description;
@@ -313,7 +318,7 @@
 #pragma mark EGORefreshTableHeaderDelegate Methods
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view {
-    [self downloadXML];
+    [self downloadXML]; //Redownload data
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view {
@@ -331,14 +336,14 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+    
+    //Only reload image when tableview stops scrolling
     if (!decelerate)
-    {
         [self loadImagesForOnscreenRows];
-    }
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    //Only reload image when tableview stops scrolling
     [self loadImagesForOnscreenRows];
 }
 
@@ -351,9 +356,11 @@
 
 - (void)startIconDownload:(FeedObject *)aFeedObject forIndexPath:(NSIndexPath *)indexPath
 {
+    //Check if image is already downloading
     IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
     if (iconDownloader == nil) 
     {
+        //Start download if image is being download
         iconDownloader = [[IconDownloader alloc] init];
         iconDownloader.aFeedObject = aFeedObject;
         iconDownloader.delegate = self;
@@ -363,10 +370,12 @@
     } 
 }
 
-// called by our ImageDownloader when an icon is ready to be displayed
 - (void)appImageDidLoad:(FeedObject *)aFeedObject
 {
-    [self.tableView reloadData];
+    //Reload only those cells that are visible
+    NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+    [self.tableView reloadRowsAtIndexPaths: visiblePaths
+                          withRowAnimation: UITableViewRowAnimationNone];
 }
 
 - (void)loadImagesForOnscreenRows
@@ -378,8 +387,8 @@
         {
             FeedObject *aFeedObject = [data objectAtIndex:indexPath.row];
             
+            //Check for image in cache directory
             NSString *imageName = [aFeedObject.title stringByAppendingString:@".jpg"];
-            
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
             NSString *cachesDirectory = [paths objectAtIndex:0];
             NSString *imagePath = [cachesDirectory stringByAppendingPathComponent:imageName];

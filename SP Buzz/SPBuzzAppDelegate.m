@@ -18,16 +18,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {       
+    //Setting up Facebook
     facebook = [[Facebook alloc] initWithAppId:FacebookAppID andDelegate:self];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    //Checking for previous Facebook logins
     if ([defaults objectForKey:@"FBAccessTokenKey"] 
         && [defaults objectForKey:@"FBExpirationDateKey"]) {
         facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
         facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
     }
-    
+    //Logout all sharing if user selects ON in settings
     if ([defaults boolForKey:@"logout"]) {
         [SHK logoutOfAll];
         [facebook logout:self];   
@@ -36,7 +38,7 @@
         [defaults setBool:NO forKey:@"logout"];
         [defaults synchronize];
     }
-    
+    //Clear all files in cache directory if user selects ON in settings
     if ([defaults boolForKey:@"clearcache"]) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *cachesDirectory = [paths objectAtIndex:0]; 
@@ -48,8 +50,8 @@
         [defaults synchronize];
     }
     
+    //Setting up the UI of the app
     masterViewController = [[MasterViewController alloc]init];
-    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self setupiPhone];
     else
@@ -77,6 +79,7 @@
 }
 
 - (void)fbDidLogin {
+    //Save user token and key to NSUserDefaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[facebook accessToken] forKey:@"FBAccessTokenKey"];
     [defaults setObject:[facebook expirationDate] forKey:@"FBExpirationDateKey"];
